@@ -1,6 +1,6 @@
 import math.abs
 
-object ExerciseLesson2Video3 {
+object ExerciseVideo3 {
   val tolerance = 0.0001
   def isCloseEnough(x: Double, y: Double) =
     abs((x - y) / x) / x < tolerance

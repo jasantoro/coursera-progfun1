@@ -1,4 +1,4 @@
-object ExerciseLesson2Video2 {
+object ExerciseVideo2 {
 
   def sum(f: Int => Int)(a: Int, b: Int): Int =
     if(a > b) 0
