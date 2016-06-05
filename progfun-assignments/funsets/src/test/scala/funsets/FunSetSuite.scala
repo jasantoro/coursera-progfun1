@@ -163,7 +163,26 @@ class FunSetSuite extends FunSuite {
   test("map elements") {
     new TestSets {
       val mapped = map(s1, x => x + 1)
+      assert(contains(mapped, 2), "mapped contains 2")
+    }
+  }
+
+  test("map 2 elements") {
+    new TestSets {
+      val a1 = singletonSet(1)
+      val a2 = singletonSet(3)
+      val a3 = singletonSet(4)
+      val a4 = singletonSet(5)
+      val a5 = singletonSet(7)
+      val a6 = singletonSet(1000)
+      val all = union(union(union(union(union(a1, a2), a3), a4), a5), a6)
+      val mapped = map(all, x => x - 1)
       assert(contains(mapped, 0), "mapped contains 0")
+      assert(contains(mapped, 2), "mapped contains 2")
+      assert(contains(mapped, 3), "mapped contains 3")
+      assert(contains(mapped, 4), "mapped contains 4")
+      assert(contains(mapped, 6), "mapped contains 6")
+      assert(contains(mapped, 999), "mapped contains 999")
     }
   }
 
