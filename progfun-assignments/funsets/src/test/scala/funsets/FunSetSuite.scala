@@ -110,5 +110,61 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("intersect elements") {
+    new TestSets {
+      val s = union(s1, s2)
+      val all = union(s, s3)
+      val i = intersect(s, all)
+      assert(contains(i, 1), "Intersect 1")
+      assert(contains(i, 2), "Intersect 2")
+      assert(!contains(i, 3), "Intersect 3")
+    }
+  }
+
+  test("diff elements") {
+    new TestSets {
+      val s = union(s1, s2)
+      val all = union(s, s3)
+      val d = diff(all, s)
+      assert(!contains(d, 1), "Diff 1")
+      assert(!contains(d, 2), "Diff 2")
+      assert(contains(d, 3), "Diff 3")
+    }
+  }
+
+  test("filter elements") {
+    new TestSets {
+      val s = union(s1, s2)
+      val all = union(s, s3)
+      val filtered = filter(all, x => x > 1)
+      assert(!contains(filtered, 1), "Filtered 1")
+      assert(contains(filtered, 2), "Filtered 1")
+      assert(contains(filtered, 3), "Filtered 1")
+    }
+  }
+
+  test("forall elements") {
+    new TestSets {
+      val s = union(s1, s2)
+      val all = union(s, s3)
+      assert(forall(all, x => x <= 3), "< 3")
+      assert(!forall(all, x => x > 2), "> 2")
+    }
+  }
+
+  test("exists elements") {
+    new TestSets {
+      val s = union(s1, s2)
+      val all = union(s, s3)
+      assert(exists(all, x => x == 3), "== 3")
+    }
+  }
+
+  test("map elements") {
+    new TestSets {
+      val mapped = map(s1, x => x + 1)
+      assert(contains(mapped, 0), "mapped contains 0")
+    }
+  }
 
 }
