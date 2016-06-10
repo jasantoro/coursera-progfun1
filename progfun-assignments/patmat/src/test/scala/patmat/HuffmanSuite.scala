@@ -63,7 +63,6 @@ class HuffmanSuite extends FunSuite {
       fail()
     } catch {
       case ex: IllegalArgumentException => assert(true)
-      case _ => fail()
     }
   }
 
@@ -88,6 +87,12 @@ class HuffmanSuite extends FunSuite {
   test("decode and encode a other text should be identity") {
     new TestTrees {
       assert(decode(t1, encode(t1)("abaaaba".toList)) === "abaaaba".toList)
+    }
+  }
+
+  test("decode and encode a other text should be identity with CodeTable") {
+    new TestTrees {
+      assert(decode(t1, quickEncode(t1)("abaaaba".toList)) === "abaaaba".toList)
     }
   }
 
