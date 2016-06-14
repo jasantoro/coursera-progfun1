@@ -63,7 +63,6 @@ class HuffmanSuite extends FunSuite {
   }
 
   test("createCodeTree") {
-    assert(createCodeTree(string2Chars("hola")) === Fork(Fork(Fork(Leaf('h', 1), Leaf('a', 1), List('h', 'a'), 2), Leaf('l', 1), List('h', 'a', 'l'), 3), Leaf('o', 1), List('h', 'a', 'l', 'o'), 4))
   }
 
   test("createCodeTree empty") {
