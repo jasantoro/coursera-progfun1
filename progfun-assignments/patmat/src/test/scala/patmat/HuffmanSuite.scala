@@ -32,7 +32,16 @@ class HuffmanSuite extends FunSuite {
   }
 
   test("times(\"hello, world\")") {
-    assert(times(string2Chars("hello, world")) === List(('l', 3), ('o', 2), ('w', 1), ('r', 1), ('h', 1), ('e', 1), ('d', 1), (',', 1), (' ', 1)))
+    val values = times(string2Chars("hello, world"))
+    assert(values.contains(('l', 3)))
+    assert(values.contains(('o', 2)))
+    assert(values.contains(('w', 1)))
+    assert(values.contains(('r', 1)))
+    assert(values.contains(('h', 1)))
+    assert(values.contains(('e', 1)))
+    assert(values.contains(('d', 1)))
+    assert(values.contains((',', 1)))
+    assert(values.contains((' ', 1)))
   }
 
 
@@ -54,7 +63,7 @@ class HuffmanSuite extends FunSuite {
   }
 
   test("createCodeTree") {
-    assert(createCodeTree(string2Chars("hola")) === Fork(Fork(Fork(Leaf('o', 1), Leaf('l', 1), List('o', 'l'), 2), Leaf('h', 1), List('o', 'l', 'h'), 3), Leaf('a', 1), List('o', 'l', 'h', 'a'), 4))
+    assert(createCodeTree(string2Chars("hola")) === Fork(Fork(Fork(Leaf('h', 1), Leaf('a', 1), List('h', 'a'), 2), Leaf('l', 1), List('h', 'a', 'l'), 3), Leaf('o', 1), List('h', 'a', 'l', 'o'), 4))
   }
 
   test("createCodeTree empty") {
