@@ -82,6 +82,9 @@ object Anagrams {
    *  in the example above could have been displayed in some other order.
    */
   def combinations(occurrences: Occurrences): List[Occurrences] = {
+    val individual = occurrences.map(c => (1 to c._2).map(v => (c._1, v))).flatten
+    println(individual)
+    Nil
   }
 
   /** Subtracts occurrence list `y` from occurrence list `x`.

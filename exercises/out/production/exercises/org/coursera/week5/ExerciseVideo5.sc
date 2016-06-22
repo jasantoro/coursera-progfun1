@@ -19,7 +19,7 @@ def lengthFun[T](xs: List[T]): Int =
   (xs foldRight 0)((x, y) => y + 1)
 
 def mapFun[T, U](xs: List[T], f: T => U): List[U] =
-  (xs foldRight List[U]()) ((x, y) => f(x) :: )
+  (xs foldRight List[U]()) ((x, y) => f(x) :: y)
 
 lengthFun(List[Int](1,2,3))
 mapFun[Int,Int](List[Int](1,2,3), (_ + 1))
