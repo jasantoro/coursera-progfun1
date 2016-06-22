@@ -82,9 +82,13 @@ object Anagrams {
    *  in the example above could have been displayed in some other order.
    */
   def combinations(occurrences: Occurrences): List[Occurrences] = {
-    val individual = occurrences.map(c => (1 to c._2).map(v => (c._1, v))).flatten
-    println(individual)
-    Nil
+    val individual = occurrences.map(c => (1 to c._2).map(v => (c._1, v)))
+    individual.foldRight(List[Occurrences](Nil))((x, y) => {
+      y ++ (for {
+        i <- x
+        j <- y
+      } yield (i :: j))
+    })
   }
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
@@ -97,7 +101,11 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = {
+    val (p1, p2) = x.partition(a => y.exists(b => a._1 == b._1))
+    val diff = for((a, b) <- p1.zip(y) if a._2 != b._2) yield (a._1, a._2 - b._2)
+    (p2 ++ diff).sorted
+  }
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
@@ -139,5 +147,18 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+    def inner(occurrences: Occurrences): List[Sentence] = {
+      if(occurrences.isEmpty) List(Nil)
+      else {
+        val comb = combinations(occurrences)
+        for {
+          i <- comb if dictionaryByOccurrences.keySet(i)
+          j <- dictionaryByOccurrences(i)
+          s <- inner(subtract(occurrences, i))
+        } yield j :: s
+      }
+    }
+    inner(sentenceOccurrences(sentence))
+  }
 }
